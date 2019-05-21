@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" style="background-color: rgb(47, 47, 112); color: white">
+            <div class="col-md-12 text-center">
+                <h3 class="" style="padding: 20px 0px 20px 0px">
+                    <i class="fa fa-newspaper-o" style="font-size:36px"> New York Times Search</i>
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-5 mb-5">
+                <div class="card">
+                    <h3 class="card-header">
+                        <i class="fa fa-newspaper-o" style="font-size:24px"> Search Parameter</i>
+                    </h3>
+                    <form role="form">
+                        <div class="form-group px-3 pt-3">
+
+                            <label for="InputSearch">
+                                Search Term
+                            </label>
+                            <input type="search" class="form-control" id="InputSearch" />
+                        </div>
+                        <div class="form-group px-3">
+
+                            <label for="NumRec">
+                                Number of Records to Retrieve
+                            </label>
+                            <input type="number of records" class="form-control" id="NumRec" />
+                        </div>
+                        <div class="form-group px-3">
+
+                            <label for="startYear">
+                                Start Year (Optional)
+                            </label>
+                            <input type="year" class="form-control" id="startYear" />
+                        </div>
+                        <div class="form-group px-3">
+
+                            <label for="endYear">
+                                End Year (Optional)
+                            </label>
+                            <input type="year" class="form-control" id="endYear" />
+                        </div>
+                        <div class="pb-3">
+                            <button type="submit" class="btn btn-secondary mx-3" id="searchBtn">
+                                <i class="fa fa-search"> Search</i>
+                            </button>
+                            <button type="submit" class="btn btn-secondary" id="clearBtn">
+                                <i class="fa fa-trash"> Clear Results</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">
+                        <i class="fa fa-newspaper-o" style="font-size:24px"> Top Articles</i>
+                    </h3>
+
+                    <div id="results" class="p-3">
+                        here
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        // Parameter variables
+        var searchTerm = "";
+        var numResults;
+        var startYear;
+        var endYear;
+        var authKey = "R1a31F4tBjCUaM2ho8GtIFsrSdtXt30M";
+
+        function displayArticleInfo() {
+
+            var searchTerm = $("#InputSearch").val();
+            console.log(this);
+            var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?page=0&fq=&" + searchTerm +
+                "&api-key=" + authKey + "&begin_date=" + "20170101" + "&end_date=" + "20180101";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+
+                console.log(response.docs.slice(0, 5)); // 1 result
+                console.log(response.docs.slice(0, 5)); // 5 results
+                console.log(response.docs.slice(0, 5)); // 10 results        
+
+                var div = $("<div>");
+                $("#results").append(div)
+
+
+
+            });
+        }
+        $("#searchBtn").on("click", function (event) {
+            event.preventDefault();
+            console.log("hi");
+            displayArticleInfo();
+        });
+
+
+    </script>
+</body>
+
+</html>
